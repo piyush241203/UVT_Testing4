@@ -1,0 +1,139 @@
+'use client';
+import React, { useState, useEffect, useRef } from 'react';
+
+export function LiveClock() {
+  const [time, setTime] = useState('');
+  useEffect(() => {
+    setTime(new Date().toLocaleTimeString());
+    const t = setInterval(() => setTime(new Date().toLocaleTimeString()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  return <span className="dynamic-time" data-uvt-dynamic="clock">{time}</span>;
+}
+
+export function RelativeTime({ base }: { base: string }) {
+  const [label, setLabel] = useState('just now');
+  useEffect(() => {
+    const baseMs = new Date(base).getTime();
+    const update = () => {
+      const diff = Math.floor((Date.now() - baseMs) / 1000);
+      if (diff < 60) setLabel(`${diff}s ago`);
+      else if (diff < 3600) setLabel(`${Math.floor(diff / 60)}m ago`);
+      else setLabel(`${Math.floor(diff / 3600)}h ago`);
+    };
+    update();
+    const t = setInterval(update, 5000);
+    return () => clearInterval(t);
+  }, [base]);
+  return <span className="dynamic-reltime" data-uvt-dynamic="relative-time">{label}</span>;
+}
+
+export function CountdownTimer({ seconds }: { seconds: number }) {
+  const [rem, setRem] = useState(seconds);
+  useEffect(() => {
+    if (rem <= 0) return;
+    const t = setInterval(() => setRem(r => Math.max(0, r - 1)), 1000);
+    return () => clearInterval(t);
+  }, [rem]);
+  const m = String(Math.floor(rem / 60)).padStart(2, '0');
+  const s = String(rem % 60).padStart(2, '0');
+  return <span className="dynamic-countdown" data-uvt-dynamic="countdown">{m}:{s}</span>;
+}
+
+export function DynamicTokens() {
+  const uuid = useRef(`f81d4fae-7dec-11d0-a765-${Math.random().toString(16).substring(2, 14)}`);
+  const sessionId = useRef(`sess_${Math.random().toString(36).substring(2, 18)}`);
+  const requestId = useRef(`req-${Math.random().toString(36).substring(2, 10)}`);
+  const token = useRef(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${Math.random().toString(36).substring(7)}`);
+  const createdAt = useRef(new Date().toISOString());
+  const updatedAt = useRef(new Date().toISOString());
+  return (
+    <div style={{ padding: '12px', background: '#f9f9f9', borderRadius: '8px', marginBottom: '12px', fontSize: '12px' }}>
+      <div><strong>UUID:</strong> <span className="dynamic-uuid" data-uvt-dynamic="uuid">{uuid.current}</span></div>
+      <div><strong>Session:</strong> <span className="dynamic-session" data-uvt-dynamic="session-id">{sessionId.current}</span></div>
+      <div><strong>Request ID:</strong> <span className="dynamic-requestid" data-uvt-dynamic="request-id">{requestId.current}</span></div>
+      <div><strong>JWT:</strong> <span className="dynamic-token" data-uvt-dynamic="token" style={{ wordBreak: 'break-all' }}>{token.current}</span></div>
+      <div><strong>Created At:</strong> <span className="dynamic-createdat" data-uvt-dynamic="timestamp">{createdAt.current}</span></div>
+      <div><strong>Updated At:</strong> <span className="dynamic-updatedat" data-uvt-dynamic="timestamp">{updatedAt.current}</span></div>
+    </div>
+  );
+}
+
+export function SkeletonLoader() {
+  return (
+    <div style={{ animation: 'skeletonPulse 1.4s ease-in-out infinite' }}>
+      <div style={{ height: '16px', background: '#e0e0e0', borderRadius: '4px', marginBottom: '8px' }} />
+      <div style={{ height: '16px', background: '#e0e0e0', borderRadius: '4px', width: '80%', marginBottom: '8px' }} />
+      <div style={{ height: '16px', background: '#e0e0e0', borderRadius: '4px', width: '60%' }} />
+      <style>{`@keyframes skeletonPulse { 0%,100%{opacity:1} 50%{opacity:.5} }`}</style>
+    </div>
+  );
+}
+
+export function ProgressBar({ value }: { value: number }) {
+  const [progress, setProgress] = useState(value);
+  useEffect(() => {
+    const t = setInterval(() => setProgress(p => (p >= 100 ? 0 : p + 1)), 200);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <div>
+      <div style={{ background: '#e0e0e0', borderRadius: '999px', height: '8px', overflow: 'hidden' }}>
+        <div data-uvt-dynamic="progress-bar" style={{ width: `${progress}%`, height: '100%', background: '#646cff', transition: 'width 0.2s' }} />
+      </div>
+      <small>{progress}% complete</small>
+    </div>
+  );
+}
+
+export function ChartBar({ data, label }: { data: number[]; label: string }) {
+  const max = Math.max(...data, 1);
+  return (
+    <div>
+      <h5 style={{ marginBottom: '8px' }}>{label}</h5>
+      <div style={{ display: 'flex', alignItems: 'flex-end', gap: '6px', height: '80px' }}>
+        {data.map((v, i) => (
+          <div key={i} style={{
+            width: '24px',
+            height: `${(v / max) * 80}px`,
+            background: `hsl(${(i * 40) % 360}, 60%, 55%)`,
+            borderRadius: '3px 3px 0 0',
+          }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function RandomAvatar({ seed }: { seed: string }) {
+  return <img src={`https://i.pravatar.cc/40?u=${seed}`} alt="avatar" style={{ width: 40, height: 40, borderRadius: '50%' }} />;
+}
+
+export function CanvasAnimation() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let animId: number;
+    let x = 0;
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#ff6480';
+      ctx.beginPath();
+      ctx.arc(x, 50, 20, 0, 2 * Math.PI);
+      ctx.fill();
+      x = (x + 2) % canvas.width;
+      animId = requestAnimationFrame(render);
+    };
+    render();
+    return () => cancelAnimationFrame(animId);
+  }, []);
+  return (
+    <div style={{ margin: '12px 0' }}>
+      <h5 style={{ margin: '0 0 6px' }}>Canvas Animation</h5>
+      <canvas data-uvt-dynamic="canvas" ref={canvasRef} width="300" height="100" style={{ border: '1px solid #ccc', borderRadius: '4px' }} />
+    </div>
+  );
+}
