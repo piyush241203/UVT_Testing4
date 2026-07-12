@@ -137,3 +137,64 @@ export function CanvasAnimation() {
     </div>
   );
 }
+
+export function Modal() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ marginBottom: '16px' }}>
+      <button 
+        onClick={() => setOpen(true)}
+        style={{ padding: '8px 16px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+      >
+        Open Modal
+      </button>
+      {open && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div style={{ background: '#fff', padding: '24px', borderRadius: '8px', minWidth: '300px' }}>
+            <h3 style={{ marginTop: 0 }}>Modal Title</h3>
+            <p>This is a dynamically generated modal overlay.</p>
+            <DynamicTokens />
+            <button 
+              onClick={() => setOpen(false)}
+              style={{ marginTop: '16px', padding: '8px 16px', background: '#ef4444', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function Drawer() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ marginBottom: '16px' }}>
+      <button 
+        onClick={() => setOpen(true)}
+        style={{ padding: '8px 16px', background: '#10b981', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+      >
+        Open Drawer
+      </button>
+      {open && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} onClick={() => setOpen(false)} />
+          <div style={{ position: 'relative', background: '#fff', width: '300px', height: '100%', padding: '24px', boxShadow: '-4px 0 15px rgba(0,0,0,0.1)' }}>
+            <h3 style={{ marginTop: 0 }}>Settings Drawer</h3>
+            <p>Modify your preferences here.</p>
+            <LiveClock />
+            <div style={{ marginTop: '24px' }}>
+              <button 
+                onClick={() => setOpen(false)}
+                style={{ width: '100%', padding: '8px 16px', background: '#6b7280', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+              >
+                Close Drawer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
