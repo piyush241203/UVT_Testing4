@@ -4,9 +4,9 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="space-y-8">
-      <section className="text-center py-24 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-2xl shadow-xl">
-        <h2 className="text-6xl font-extrabold mb-6 tracking-tight">Welcome to RC-02.1 Validation</h2>
-        <p className="text-2xl opacity-95">Validating new Percy tokens and GHA Auth Check.</p>
+      <section className="text-center py-20 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-3xl shadow-2xl">
+        <h2 className="text-5xl font-black mb-4 tracking-tighter">Welcome to RC-02.1 Live Check</h2>
+        <p className="text-xl opacity-90 font-medium">Validating Percy authentication in GitHub Actions.</p>
       </section>
       <nav style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', marginTop: '24px' }}>
         {[
