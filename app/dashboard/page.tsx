@@ -5,11 +5,11 @@ export default function DashboardPage() {
   return (
     <div style={{ padding: '24px' }}>
       <h2>Dashboard</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '32px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '24px' }}>
         {[{ label: 'Builds', value: '182' }, { label: 'Passed', value: '177' }, { label: 'Failed', value: '5' }, { label: 'Snapshots', value: '9,840' }].map(m => (
-          <div key={m.label} style={{ padding: '20px', background: '#eef2ff', border: '1px solid #d0d7ff', borderRadius: '12px', textAlign: 'center', boxShadow: '0 4px 6px rgba(0,0,0,0.05)' }}>
-            <div style={{ fontSize: '28px', fontWeight: 800, color: '#4f46e5' }}>{m.value}</div>
-            <div style={{ color: '#4b5563', fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{m.label}</div>
+          <div key={m.label} style={{ padding: '14px', background: '#f5f5ff', borderRadius: '10px', textAlign: 'center' }}>
+            <div style={{ fontSize: '24px', fontWeight: 700, color: '#646cff' }}>{m.value}</div>
+            <div style={{ color: '#666', fontSize: '13px' }}>{m.label}</div>
           </div>
         ))}
       </div>
