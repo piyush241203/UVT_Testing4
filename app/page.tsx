@@ -3,9 +3,11 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div style={{ textAlign: 'center', padding: '24px' }}>
-      <h1>UVT Next.js Demo — RC-02 Lifecycle Validation</h1>
-      <p>Select a section from the navigation above.</p>
+    <div className="space-y-8">
+      <section className="text-center py-20 bg-gradient-to-r from-red-500 to-yellow-500 text-white rounded-lg">
+        <h2 className="text-5xl font-bold mb-4">Welcome to RC-02 Incremental</h2>
+        <p className="text-xl opacity-90">An enterprise e-commerce platform.</p>
+      </section>
       <nav style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', marginTop: '24px' }}>
         {[
           ['/about', 'About'],
