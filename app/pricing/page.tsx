@@ -3,10 +3,13 @@ export default function PricingPage() {
   const plans = [
     { name: 'Starter', price: '$0', features: ['3 projects', '1,000 snapshots/mo', 'Community support'] },
     { name: 'Pro', price: '$49/mo', features: ['Unlimited projects', '50,000 snapshots/mo', 'Priority support'] },
-    { name: 'Enterprise', price: 'Custom', features: ['SLA', 'SSO', 'Dedicated onboarding'] },
+    { name: 'Enterprise', price: 'Custom', features: ['SLA', 'SSO', 'Dedicated onboarding', 'Annual billing discount'] },
   ];
   return (
     <div style={{ padding: '24px' }}>
+      <div style={{ background: '#e05d44', color: '#fff', padding: '8px 16px', borderRadius: '6px', marginBottom: '16px', fontWeight: 600 }}>
+        🎉 Limited Offer: 30% off Pro plans this week only!
+      </div>
       <h2>Pricing</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
         {plans.map(p => (
