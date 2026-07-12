@@ -4,11 +4,11 @@ import { LiveClock, CountdownTimer, DynamicTokens, CanvasAnimation, ProgressBar,
 export default function DashboardPage() {
   return (
     <div style={{ padding: '24px' }}>
-      <h2>Dashboard</h2>
+      <h2 style={{ color: '#e05d44' }}>Dashboard — v2</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '24px' }}>
         {[{ label: 'Builds', value: '182' }, { label: 'Passed', value: '177' }, { label: 'Failed', value: '5' }, { label: 'Snapshots', value: '9,840' }].map(m => (
-          <div key={m.label} style={{ padding: '14px', background: '#f5f5ff', borderRadius: '10px', textAlign: 'center' }}>
-            <div style={{ fontSize: '24px', fontWeight: 700, color: '#646cff' }}>{m.value}</div>
+          <div key={m.label} style={{ padding: '14px', background: '#fff7ed', borderRadius: '10px', textAlign: 'center', border: '1px solid #fed7aa' }}>
+            <div style={{ fontSize: '24px', fontWeight: 700, color: '#e05d44' }}>{m.value}</div>
             <div style={{ color: '#666', fontSize: '13px' }}>{m.label}</div>
           </div>
         ))}
