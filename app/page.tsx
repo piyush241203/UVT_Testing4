@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <div className="space-y-8">
       <section className="text-center py-24 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-2xl shadow-xl">
-        <h2 className="text-6xl font-extrabold mb-6 tracking-tight">Welcome to Final RC-02 Incremental</h2>
-        <p className="text-2xl opacity-95">Hopefully Percy tokens are fully working now!</p>
+        <h2 className="text-6xl font-extrabold mb-6 tracking-tight">Welcome to RC-02.1 Validation</h2>
+        <p className="text-2xl opacity-95">Validating new Percy tokens and GHA Auth Check.</p>
       </section>
       <nav style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', marginTop: '24px' }}>
         {[
