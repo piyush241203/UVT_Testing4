@@ -8,7 +8,7 @@ export default function PricingPage() {
   return (
     <div style={{ padding: '24px' }}>
       <div style={{ background: '#e05d44', color: '#fff', padding: '8px 16px', borderRadius: '6px', marginBottom: '16px', fontWeight: 600 }}>
-        🎉 Limited Offer: 30% off Pro plans this week only!
+        🔥 Limited Offer: 40% off Pro plans this week only!
       </div>
       <h2>Pricing</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
