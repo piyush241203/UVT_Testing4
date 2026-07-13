@@ -308,26 +308,63 @@ jobs:
           echo "Framework       : \${{detectedFramework}}"
           echo "CLI Source      : \${{isWorkspace ? 'Workspace' : 'Published Package'}}"
           echo "Node            : \\\$(node -v)"
+          echo "Working Dir     : \\\$(pwd)"
+          
           if npx playwright --version &>/dev/null; then
             echo "Playwright      : Installed"
           else
             echo "Playwright      : Not Installed"
           fi
+          
+          echo "=== Percy Diagnostics ==="
           if [ -n "\\\$PERCY_TOKEN" ]; then
-            echo "Percy           : Configured"
+            echo "PERCY_TOKEN: Present"
+            echo "Length: \\\${#PERCY_TOKEN}"
+            MASKED_TOKEN="\\\${PERCY_TOKEN:0:4}****\\\${PERCY_TOKEN: -4}"
+            echo "Masked: \\\$MASKED_TOKEN"
           else
-            echo "Percy           : Not Configured"
+            echo "PERCY_TOKEN: Not Present"
           fi
+          
+          if npx percy --version &>/dev/null; then
+            echo "Percy CLI: \\\$(npx percy --version)"
+          else
+            echo "Percy CLI: Not Installed"
+          fi
+          
+          if npm ls @percy/playwright &>/dev/null; then
+            echo "@percy/playwright: \\\$(npm ls @percy/playwright | grep @percy/playwright)"
+          else
+            echo "@percy/playwright: Not Installed or not found in npm ls"
+          fi
+          
+          echo "--- Percy Environment Variables ---"
+          env | grep PERCY || echo "No other PERCY_* vars found"
+          
           echo "======================="
         env:
-          PERCY_TOKEN: \\\\\${{ secrets.PERCY_TOKEN }}
+          PERCY_TOKEN: \${{ secrets.PERCY_TOKEN }}
 \${{ensureCliCmd}}
+      - name: Validate Percy Authentication (Independent Test)
+        run: |
+          if [ -n "\${{ secrets.PERCY_TOKEN }}" ]; then
+            echo "Running minimal independent Percy authentication test..."
+            npx percy exec -- echo "Percy Authenticated Independently" || {
+              echo "Percy independent authentication failed! This proves it's not a UVT issue."
+              exit 1
+            }
+          else
+            echo "No PERCY_TOKEN provided, skipping auth check."
+          fi
+        env:
+          PERCY_TOKEN: \${{ secrets.PERCY_TOKEN }}
+
       - name: Cache Playwright Browsers
         id: playwright-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: \\\\\${{ runner.os }}-playwright-\\\\\${{ hashFiles('\${{lockfileGlob}}') }}
+          key: \${{ runner.os }}-playwright-\${{ hashFiles('\${{lockfileGlob}}') }}
 
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
@@ -337,7 +374,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.local/share/percy
-          key: \\\\\${{ runner.os }}-percy-\\\\\${{ hashFiles('\${{lockfileGlob}}') }}
+          key: \${{ runner.os }}-percy-\${{ hashFiles('\${{lockfileGlob}}') }}
 
       - name: Build frontend application
         run: npm run build --if-present
@@ -352,9 +389,9 @@ jobs:
           done
 
       - name: Run visual regression tests
-        run: \${{runCliCmd}} test --changed --port 3000
+        run: npx percy exec -- \${{runCliCmd}} test --changed --port 3000
         env:
-          PERCY_TOKEN: \\\\\${{ secrets.PERCY_TOKEN }}
+          PERCY_TOKEN: \${{ secrets.PERCY_TOKEN }}
 `
         .replace(/\$\{\{setupPnpm\}\}/g, setupPnpm)
         .replace(/\$\{\{setupBun\}\}/g, setupBun)

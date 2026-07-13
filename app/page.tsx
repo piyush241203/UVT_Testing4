@@ -4,9 +4,9 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="space-y-8">
-      <section className="text-center py-20 bg-gradient-to-r from-red-500 to-yellow-500 text-white rounded-3xl shadow-2xl">
-        <h2 className="text-6xl font-black mb-4 tracking-tighter">🔥 Welcome to UVT RC-03 Prep</h2>
-        <p className="text-2xl opacity-90 font-bold">Testing GitHub Actions visual snapshots</p>
+      <section className="text-center py-20 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-3xl shadow-2xl">
+        <h2 className="text-6xl font-black mb-4 tracking-tighter">🌸 Welcome to UVT RC-03.2 Live Pipeline</h2>
+        <p className="text-2xl opacity-90 font-bold">Masking and stabilization validation.</p>
       </section>
       <nav style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', marginTop: '24px' }}>
         {[
