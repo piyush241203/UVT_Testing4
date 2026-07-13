@@ -32,16 +32,39 @@ jobs:
           echo "Framework       : Next.js"
           echo "CLI Source      : Published Package"
           echo "Node            : \$(node -v)"
+          echo "Working Dir     : \$(pwd)"
+          
           if npx playwright --version &>/dev/null; then
             echo "Playwright      : Installed"
           else
             echo "Playwright      : Not Installed"
           fi
+          
+          echo "=== Percy Diagnostics ==="
           if [ -n "\$PERCY_TOKEN" ]; then
-            echo "Percy           : Configured"
+            echo "PERCY_TOKEN: Present"
+            echo "Length: \${#PERCY_TOKEN}"
+            MASKED_TOKEN="\${PERCY_TOKEN:0:4}****\${PERCY_TOKEN: -4}"
+            echo "Masked: \$MASKED_TOKEN"
           else
-            echo "Percy           : Not Configured"
+            echo "PERCY_TOKEN: Not Present"
           fi
+          
+          if npx percy --version &>/dev/null; then
+            echo "Percy CLI: \$(npx percy --version)"
+          else
+            echo "Percy CLI: Not Installed"
+          fi
+          
+          if npm ls @percy/playwright &>/dev/null; then
+            echo "@percy/playwright: \$(npm ls @percy/playwright | grep @percy/playwright)"
+          else
+            echo "@percy/playwright: Not Installed or not found in npm ls"
+          fi
+          
+          echo "--- Percy Environment Variables ---"
+          env | grep PERCY || echo "No other PERCY_* vars found"
+          
           echo "======================="
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
@@ -89,6 +112,10 @@ jobs:
           done
 
       - name: Run visual regression tests
-        run: npx percy exec -- npx uvt test --changed --port 3000
+        run: npx uvt test --changed --port 3000
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          
+      - name: Teardown background processes
+        if: always()
+        run: pkill -f "node" || true
