@@ -156,9 +156,16 @@ class PercyProvider {
         return new Promise((resolve) => {
             const isWin = process.platform === 'win32';
             const cmd = isWin ? 'npx.cmd' : 'npx';
+            const fs = require('fs');
+            const path = require('path');
+            const uvtDir = path.join(process.cwd(), '.uvt');
+            if (!fs.existsSync(uvtDir)) {
+                fs.mkdirSync(uvtDir, { recursive: true });
+            }
+            const logFd = fs.openSync(path.join(uvtDir, 'percy.log'), 'a');
             const child = require('child_process').spawn(cmd, ['--yes', 'percy', 'exec:start'], {
                 detached: !isWin,
-                stdio: 'ignore',
+                stdio: ['ignore', logFd, logFd],
                 env: process.env,
                 shell: isWin
             });
