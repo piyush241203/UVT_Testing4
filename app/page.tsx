@@ -5,9 +5,8 @@ export default function Home() {
   return (
     <div className="space-y-8">
       <section className="text-center py-20 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-3xl shadow-2xl">
-        <h2 className="text-6xl font-black mb-4 tracking-tighter">🌸 Welcome to UVT RC-04 (Remote CI Final Phase)</h2>
-        <p className="text-2xl opacity-90 font-bold">Pushing to GitHub Actions for full verification.</p>
-        <p className="text-3xl mt-4 font-bold bg-white/20 inline-block px-4 py-2 rounded-xl border border-white/50">This is Next.js (End-to-End verified)</p>
+        <h2 className="text-6xl font-black mb-4 tracking-tighter">🌸 UVT Next.js — UI Round 2 🎯</h2>
+        <p className="text-2xl opacity-90 font-bold">Visual regression testing across all 15 routes.</p>
       </section>
       <nav style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', justifyContent: 'center', marginTop: '24px' }}>
         {[
