@@ -18,7 +18,8 @@ export default function AboutPage() {
         borderRadius: '20px', padding: '40px 32px', color: '#fff',
         boxShadow: '0 8px 32px rgba(14,165,233,0.35)',
       }}>
-        <h1 style={{ margin: '0 0 10px', fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px' }}>🧪 About UVT Platform v4.1 — New Percy Token Git CI Test ✅</h1>
+        <h1 style={{ margin: '0 0 10px', fontSize: '2rem', fontWeight: 900, letterSpacing: '-1px' }}>🧪 About UVT Platform v5.0 — Ready For User Self-Testing ✨</h1>
+
 
 
 
