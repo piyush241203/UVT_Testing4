@@ -21,12 +21,13 @@ export default function Home() {
           background: 'rgba(167,139,250,0.2)', borderRadius: '50%'
         }} />
         <h1 style={{ fontSize: '3rem', fontWeight: 900, margin: '0 0 12px', letterSpacing: '-2px' }}>
-          🚀 UVT Next.js Demo v3
+          🚀 UVT Next.js Demo v5.1 — Certified ✨
         </h1>
         <p style={{ fontSize: '1.2rem', margin: '0 0 24px', opacity: 0.85 }}>
           Percy visual regression testing — 20 routes auto-discovered
         </p>
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <span style={{ background: '#10b981', color: '#fff', borderRadius: '20px', padding: '8px 18px', fontSize: '13px', fontWeight: 700, boxShadow: '0 2px 8px rgba(16,185,129,0.5)' }}>✨ Certified v5.1</span>
           <span style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', borderRadius: '20px', padding: '8px 18px', fontSize: '13px', fontWeight: 600, border: '1px solid rgba(255,255,255,0.3)' }}>✅ Percy Integrated</span>
           <span style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', borderRadius: '20px', padding: '8px 18px', fontSize: '13px', fontWeight: 600, border: '1px solid rgba(255,255,255,0.3)' }}>⚡ Selective Testing</span>
           <span style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', borderRadius: '20px', padding: '8px 18px', fontSize: '13px', fontWeight: 600, border: '1px solid rgba(255,255,255,0.3)' }}>🎯 20 Routes Covered</span>
