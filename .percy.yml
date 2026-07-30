@@ -5,7 +5,8 @@ snapshot:
     - 768
     - 1280
   min-height: 1024
-  enable-javascript: false
+  enable-javascript: true
 discovery:
   network-idle-timeout: 750
-  # Framework: Next.js | Project: Hybrid
+  disable-cache: false
+  # Framework: Next.js | Project: SSR/SPA
